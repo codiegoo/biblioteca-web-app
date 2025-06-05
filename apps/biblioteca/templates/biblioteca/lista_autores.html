@@ -1,0 +1,19 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Autores{% endblock %}
+{% block content %}
+    <h3 class="ui header">Autores</h3>
+    <a href="{% url 'nuevo_autor' %}" class="ui green button">Nuevo Autor</a>
+    <table class="ui celled table">
+        <thead><tr><th>Id</th><th>Nombre</th><th>Acciones</th></tr></thead>
+        <tbody>
+            {% for a in autores %}
+            <tr><td>{{ a.id }}</td><td>{{ a.nombre }}</td>
+                <td>
+                    <a class="ui button blue mini" href="{% url 'editar_autor' a.id %}">Editar</a>
+                    <a class="ui button red mini" href="{% url 'eliminar_autor' a.id %}">Eliminar</a>
+                </td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Biblioteca{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <div class="right menu nav">
+        <a class="item">Hola, {{ user.username }}</a>
+        <form method="post" action="{% url 'logout' %}" >
+            {% csrf_token %}
+            <button class="logoutBtn" type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+    
+    <div class="ui container" style="margin-top: 30px;">
+        <h2 class="ui header">Biblioteca</h2>
+        <div class="ui secondary menu">
+            <a class="item" href="{% url 'index' %}">Inicio</a>
+            <a class="item" href="{% url 'lista_usuarios' %}">Usuarios</a>
+            <a class="item" href="{% url 'lista_libros' %}">Libros</a>
+            <a class="item" href="{% url 'lista_prestamos' %}">Préstamos</a>
+            <a class="item" href="{% url 'lista_autores' %}">Autores</a>
+        </div>
+
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+</body>
+</html>

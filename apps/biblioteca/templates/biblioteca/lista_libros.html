@@ -1,0 +1,20 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Libros{% endblock %}
+{% block content %}
+    <h3 class="ui header">Libros</h3>
+    <a href="{% url 'nuevo_libro' %}" class="ui green button">Nuevo Libro</a>
+    <table class="ui celled table">
+        <thead><tr><th>Título</th><th>Autor</th><th>Categoría</th><th>Disponible</th><th>Acciones</th></tr></thead>
+        <tbody>
+            {% for l in libros %}
+            <tr><td>{{ l.titulo }}</td><td>{{ l.autor }}</td><td>{{ l.categoria }}</td><td class="center aligned">{% if l.disponible %}✅{% else %}❌{% endif %}</td>            
+                <td>
+                    <a class="ui button blue mini" href="{% url 'editar_libro' l.id %}">Editar</a>
+                    <a class="ui button red mini" href="{% url 'eliminar_libro' l.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+    <h3 class="ui header">{{ titulo }}</h3>
+    <form method="post" class="ui form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if es_libro and form.instance %}
+            {% if form.instance.disponible %}
+                <p>✅ Este libro está disponible.</p>
+            {% else %}
+                <p>❌ Este libro está actualmente prestado y no se puede marcar como disponible.</p>
+            {% endif %}
+        {% endif %}
+        <button class="ui primary button" type="submit">Guardar</button>
+    </form>
+{% endblock %}
+
+

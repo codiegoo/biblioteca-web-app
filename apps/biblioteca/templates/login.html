@@ -1,0 +1,15 @@
+{% extends 'biblioteca/base.html' %}
+{% load static %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+  <section class="loginContain">
+    <div class="loginInner">
+      <h2 class="ui header">Iniciar sesión</h2>
+      <form method="post" class="ui form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="ui button primary" type="submit">Entrar</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}
