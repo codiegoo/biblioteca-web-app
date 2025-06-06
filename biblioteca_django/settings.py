@@ -1,19 +1,20 @@
 import os
 from pathlib import Path
+from decouple import config
+import dj_database_url
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-SECRET_KEY = 'django-insecure-demo-key'
 
 LOGIN_URL = 'login' 
 LOGIN_REDIRECT_URL = '/' 
 LOGOUT_REDIRECT_URL = '/login'
 
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,14 +57,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'biblioteca_django.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'nombre_de_tu_base',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': 'mongodb+srv://codiego:bNKitHsBCuW6GqFs@proyectos.vqav3an.mongodb.net/'
-        }
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = []
